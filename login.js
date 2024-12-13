@@ -17,13 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Aquí deberías implementar la lógica real de autenticación con una llamada a tu API
             const response = await simulateApiCall(documentType, documentNumber, password);
             
             if (response.success) {
-                errorMessage.textContent = '';
-                //alert('Inicio de sesión exitoso');
-                // Redirigir a la página de administración
+                hideError(); // Borra el mensaje si es necesario
                 window.location.href = 'Inicio.html';
             } else {
                 showError(response.message);
@@ -41,19 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showError(message) {
         errorMessage.textContent = message;
-        errorMessage.style.opacity = '1';
-        setTimeout(() => {
-            errorMessage.style.opacity = '0';
-        }, 3000);
+        errorMessage.style.display = 'block'; // Asegúrate de mostrar el mensaje
     }
 
-    // Simula una llamada a la API
-    async function simulateApiCall(documentType, documentNumber, password) {
-        // Simula un retraso de red
-        await new Promise(resolve => setTimeout(resolve, 1000));
+    function hideError() {
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none'; // Opcional: para ocultar el mensaje si es necesario
+    }
 
-        // Aquí deberías hacer una verdadera llamada a tu API de autenticación
-        // Por ahora, usaremos una lógica simple para demostración
+    async function simulateApiCall(documentType, documentNumber, password) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
         const validCredentials = {
             cc: { number: '12345678', password: 'iglesia2024' },
             ce: { number: '87654321', password: 'extranjero2024' },
